@@ -13,16 +13,20 @@ var App = {
 
     // Fetch initial batch of messages
     App.startSpinner();
-    App.fetch(App.stopSpinner);
+    App.fetch((data) => { 
+      console.log(data.results)
+      Messages.updateMessages(data)
+      App.stopSpinner();
+    });
 
   },
 
   fetch: function(callback = ()=>{}) {
     Parse.readAll((data) => {
       // examine the response from the server request:
-      console.log(data);
+      // console.log(data);
 
-      callback();
+      callback(data);
     });
   },
 
