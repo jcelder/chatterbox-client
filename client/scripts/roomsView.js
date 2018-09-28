@@ -7,11 +7,16 @@ var RoomsView = {
   },
 
   render: function() {
+    RoomsView.$select.empty();
     for (var room in Rooms.rooms) {
-      console.log(room);
       var option = new Option(_.escape(room), _.escape(room))
       RoomsView.$select.append(option);
     }
     RoomsView.$select.val(Rooms.currentRoom)
   },
+
+  handleRoomChange: function (event) {
+
+  }
 };
+

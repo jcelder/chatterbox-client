@@ -8,11 +8,16 @@ var Rooms = {
         RoomsView.render();
     },
 
-    addRoom: function (room) {
-        if (!Rooms.rooms[rooms]) {
-            Rooms.rooms[room] = room
+    addRoom: function ({roomname, text}) {
+        if (!Rooms.rooms[roomname] && text !== '') {
+            Rooms.rooms[roomname] = roomname
         }
 
+    },
+
+    updateCurrentRoom: function (roomName) {
+        Rooms.currentRoom = roomName;
+        MessagesView.render() 
     }
 
 };

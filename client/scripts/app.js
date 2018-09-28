@@ -14,7 +14,7 @@ var App = {
     // Fetch initial batch of messages
     App.startSpinner();
     App.fetch((data) => { 
-      console.log(data.results)
+      // console.log(data.results)
       Messages.updateMessages(data)
       App.stopSpinner();
     });
@@ -40,3 +40,10 @@ var App = {
     FormView.setStatus(false);
   }
 };
+
+
+$('document').ready(() => {
+  $('#room-selector').on('change', function (event) {
+    Rooms.updateCurrentRoom(event.target.value);
+  })
+});

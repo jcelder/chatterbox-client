@@ -7,8 +7,15 @@ var MessagesView = {
 
   render: function() {
     MessagesView.$chats.empty();
-
-    for (var message of Messages.messages) {
+    var filteredResults = _.filter(Messages.messages, (message) => {
+    if (Rooms.currentRoom === 'default') {
+        return message;
+    } else {
+        return message.roomname === Rooms.currentRoom;
+    }
+    })
+    console.log(filteredResults)
+    for (var message of filteredResults) {
       MessagesView.renderMessage(message);
     }
   },

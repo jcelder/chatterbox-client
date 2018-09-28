@@ -83,6 +83,9 @@ form input[type=text] {
     padding: 10px;
 }
 
+#rooms select {
+    max-width: 300px;
+}
 .friend {
     color: #fff;
     background-color: #0090da;
