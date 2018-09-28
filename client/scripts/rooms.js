@@ -1,14 +1,17 @@
 var Rooms = {
 
-    rooms: [],
+    rooms: {},
 
     currentRoom: 'default',
 
-    addRooms: function ()  {
-
+    triggerRoomsRender: function ()  {
+        RoomsView.render();
     },
 
     addRoom: function (room) {
+        if (!Rooms.rooms[rooms]) {
+            Rooms.rooms[room] = room
+        }
 
     }
 

@@ -18,6 +18,7 @@ var Messages = {
                     result.roomname = 'default';
                 } 
                 Messages.messages.unshift(result)
+                Rooms.addRoom(result.roomname);
             }
         }
         Messages.triggerRender();
@@ -25,6 +26,7 @@ var Messages = {
 
     triggerRender: function () {
         MessagesView.render();
+        Rooms.triggerRoomsRender();
     }
 
 };
