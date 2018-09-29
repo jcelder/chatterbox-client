@@ -17,8 +17,10 @@ var Messages = {
                 if (result.roomname === '' ||  !result.roomname) {
                     result.roomname = 'default';
                 } 
-                Messages.messages.unshift(result)
+                Messages.messages.unshift(result);
                 Rooms.addRoom(result);
+                Users.addUser(_.escape(result.username));
+                result.userId = Users.getUserIDbyUsername(_.escape(result.username));
             }
         }
         Messages.triggerRender();

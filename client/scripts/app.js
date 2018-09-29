@@ -15,8 +15,13 @@ var App = {
     App.startSpinner();
     App.fetch((data) => { 
       // console.log(data.results)
-      Messages.updateMessages(data)
+      Messages.updateMessages(data);
       App.stopSpinner();
+      setInterval(() => {
+        App.fetch((data) => {
+          Messages.updateMessages(data);
+        });
+      }, 15000);
     });
 
   },

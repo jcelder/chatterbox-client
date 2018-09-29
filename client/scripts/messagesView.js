@@ -17,33 +17,37 @@ var MessagesView = {
     for (var message of filteredResults) {
       MessagesView.renderMessage(message);
     }
+    MessagesView.$chats.off('click');
     MessagesView.$chats.on('click', (event) => {
-      var username = event.target.innerHTML;
-      if (Friends.getFriendStatus(event.target.innerHTML)) {
-        Friends.removeFriend(username);
+      // console.log(event)
+      // var username = _.escape(event.target.innerHTML);
+      // var userID = Users.getUserIDbyUsername(username);
+      var userId = event.target.parentNode.getAttribute('data-userid')
+      if (Friends.getFriendStatus(userId)) {
+        Friends.removeFriend(userId);
       } else {
-        Friends.addFriend(username)
+        Friends.addFriend(userId);
       }
-      MessagesView.highlightFriends(username);
-    })
+      MessagesView.render();
+    });
     // MessagesView.highlightAllFriends();
   },
 
   renderMessage: function (message) {
-    if (Friends.getFriendStatus(message.username)) {
-      MessagesView.$chats.append(MessageView.renderFriend(message))  
+    if (Friends.getFriendStatus(message.userId)) {
+      MessagesView.$chats.append(MessageView.renderFriend(message));  
     } else {
-      MessagesView.$chats.append(MessageView.render(message))
+      MessagesView.$chats.append(MessageView.render(message));
     }
   },
 
-  highlightFriends: function (username) {
-    $(`div[data-username=${username}]`).toggleClass('friend');
-  },
+  // highlightFriends: function (username) {
+  //   $(`div[data-userid=${userid}]`).toggleClass('friend');
+  // },
 
   highlightAllFriends: function () {
     for (var friend of Friends.friends) {
-      $(`div[data-username=${friend}]`).toggleClass('friend');
+      $(`div[data-userid=${friend}]`).toggleClass('friend');
     }
   }
 
