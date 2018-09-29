@@ -8,29 +8,16 @@ var MessagesView = {
   render: function() {
     MessagesView.$chats.empty();
     var filteredResults = _.filter(Messages.messages, (message) => {
-    if (Rooms.currentRoom === 'default') {
+      if (Rooms.currentRoom === 'default') {
         return message;
-    } else {
+      } else {
         return message.roomname === Rooms.currentRoom;
-    }
-    })
+      }
+    });
     for (var message of filteredResults) {
       MessagesView.renderMessage(message);
     }
-    MessagesView.$chats.off('click');
-    MessagesView.$chats.on('click', (event) => {
-      // console.log(event)
-      // var username = _.escape(event.target.innerHTML);
-      // var userID = Users.getUserIDbyUsername(username);
-      var userId = event.target.parentNode.getAttribute('data-userid')
-      if (Friends.getFriendStatus(userId)) {
-        Friends.removeFriend(userId);
-      } else {
-        Friends.addFriend(userId);
-      }
-      MessagesView.render();
-    });
-    // MessagesView.highlightAllFriends();
+    MessagesView.addEventHandlers();
   },
 
   renderMessage: function (message) {
@@ -41,14 +28,16 @@ var MessagesView = {
     }
   },
 
-  // highlightFriends: function (username) {
-  //   $(`div[data-userid=${userid}]`).toggleClass('friend');
-  // },
-
-  highlightAllFriends: function () {
-    for (var friend of Friends.friends) {
-      $(`div[data-userid=${friend}]`).toggleClass('friend');
-    }
+  addEventHandlers: function() {
+    MessagesView.$chats.off('click');
+    MessagesView.$chats.on('click', (event) => {
+      var userId = event.target.parentNode.getAttribute('data-userid');
+      if (Friends.getFriendStatus(userId)) {
+        Friends.removeFriend(userId);
+      } else {
+        Friends.addFriend(userId);
+      }
+      MessagesView.render();
+    });
   }
-
 };
