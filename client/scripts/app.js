@@ -33,6 +33,10 @@ var App = {
 
       callback(data);
     });
+
+    // Parse.readCurrentRoom((data) => {
+    //   console.log(data)
+    // });
   },
 
   startSpinner: function() {

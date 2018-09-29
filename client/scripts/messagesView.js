@@ -8,7 +8,7 @@ var MessagesView = {
   render: function() {
     MessagesView.$chats.empty();
     var filteredResults = _.filter(Messages.messages, (message) => {
-      if (Rooms.currentRoom === 'default') {
+      if (Rooms.currentRoom === 'lobby') {
         return message;
       } else {
         return message.roomname === Rooms.currentRoom;

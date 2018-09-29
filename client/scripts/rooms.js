@@ -2,7 +2,7 @@ var Rooms = {
 
   rooms: {},
 
-  currentRoom: 'default',
+  currentRoom: 'lobby',
 
   triggerRoomsRender: function () {
     RoomsView.render();

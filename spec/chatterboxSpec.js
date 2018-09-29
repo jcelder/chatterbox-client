@@ -52,7 +52,7 @@ describe('chatterbox', function() {
 
     });
 
-    describe('fetching', function() {
+    describe('readAll fetching', function() {
       it('should submit a GET request via $.ajax', function(done) {
         Parse.readAll();
         expect($.ajax.calledOnce).to.be.true;
@@ -60,7 +60,26 @@ describe('chatterbox', function() {
         expect(ajaxUrl).to.equal(Parse.server);
         done();
       });
-
+    });
+    describe('readCurrentRoom fetching', function() {
+      it('should return only messages from the current room', function(done) {
+        Rooms.currentRoom = 'superSecretLobby';
+        var result;
+        var message = {
+          username: 'Mel Brooks',
+          text: 'It\'s good to be the king',
+          roomname: 'superSecretLobby'
+        };
+        for (var i = 0; i < 5; i++) {
+          Parse.create(message);
+        }
+        Parse.readCurrentRoom((data) => {
+          console.log(data);
+          result = data;
+        });
+        expect(result.length).to.equal(5);
+        done();
+      });
     });
   });
 
@@ -96,7 +115,6 @@ describe('chatterbox', function() {
       App.initialize();
       MessagesView.renderMessage(message);
       MessagesView.addEventHandlers();
-      debugger;
       var userId = $('#chats').find(`[data-userid=${message.userId}]`).data('userid');
       MessagesView._friendCallback(userId);
       expect(Friends.friends[0]).to.equal('user1');
