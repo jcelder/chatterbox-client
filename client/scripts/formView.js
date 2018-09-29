@@ -17,11 +17,11 @@ var FormView = {
     };
     Parse.create(msg, () => {
       App.fetch((data) => {
-          Messages.updateMessages(data);
-        } 
-      )
+        Messages.updateMessages(data);
+      } 
+      );
     });
-    event.target[0].value = "";
+    event.target[0].value = '';
     
     // console.log('click!');
   },

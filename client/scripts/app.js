@@ -50,7 +50,7 @@ var App = {
 $('document').ready(() => {
   $('#room-selector').on('change', function (event) {
     Rooms.updateCurrentRoom(event.target.value);
-  })
+  });
 
   $('#add-room').on('click', function () {
     var result = window.prompt('Enter new room name');
@@ -60,5 +60,5 @@ $('document').ready(() => {
       Rooms.updateCurrentRoom(result);
       RoomsView.render();
     }
-  })
+  });
 });

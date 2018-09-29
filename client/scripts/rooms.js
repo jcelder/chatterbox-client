@@ -1,23 +1,23 @@
 var Rooms = {
 
-    rooms: {},
+  rooms: {},
 
-    currentRoom: 'default',
+  currentRoom: 'default',
 
-    triggerRoomsRender: function ()  {
-        RoomsView.render();
-    },
+  triggerRoomsRender: function () {
+    RoomsView.render();
+  },
 
-    addRoom: function ({roomname, text}) {
-        if (!Rooms.rooms[roomname] && text !== '') {
-            Rooms.rooms[roomname] = roomname
-        }
-
-    },
-
-    updateCurrentRoom: function (roomName) {
-        Rooms.currentRoom = roomName;
-        MessagesView.render() 
+  addRoom: function ({roomname, text}) {
+    if (!Rooms.rooms[roomname] && text !== '') {
+      Rooms.rooms[roomname] = roomname;
     }
+
+  },
+
+  updateCurrentRoom: function (roomName) {
+    Rooms.currentRoom = roomName;
+    MessagesView.render(); 
+  }
 
 };
