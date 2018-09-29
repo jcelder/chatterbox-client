@@ -9,14 +9,14 @@ var RoomsView = {
   render: function() {
     RoomsView.$select.empty();
     for (var room in Rooms.rooms) {
-      var option = new Option(_.escape(room), _.escape(room));
-      RoomsView.$select.append(option);
+      RoomsView.renderRoom(room);
     }
     RoomsView.$select.val(Rooms.currentRoom);
   },
 
-  handleRoomChange: function (event) {
-
+  renderRoom: function(room) {
+    var option = new Option(_.escape(room), _.escape(room));
+    RoomsView.$select.append(option);
   }
 };
 

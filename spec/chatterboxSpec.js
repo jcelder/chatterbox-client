@@ -69,7 +69,8 @@ describe('chatterbox', function() {
       var message = {
         username: 'Mel Brooks',
         text: 'Never underestimate the power of the Schwartz!',
-        roomname: 'lobby'
+        roomname: 'lobby',
+        userId: 1
       };
       MessagesView.renderMessage(message);
       expect($('#chats').children().length).to.equal(1);
@@ -84,39 +85,52 @@ describe('chatterbox', function() {
 
   describe('events', function() {
     it('should add a friend upon clicking their username', function() {
-      sinon.spy(Friends, 'toggleStatus');
-
-      App.initialize();
-      MessagesView.renderMessage({
+      // sinon.spy(Friends, 'toggleStatus');
+      var message = {
         username: 'Mel Brooks',
         text: 'I didn\'t get a harumph outa that guy.!',
-        roomname: 'lobby'
-      });
-      $('#chats').find('.username').trigger('click');
-      expect(Friends.toggleStatus.called).to.be.true;
-
-      Friends.toggleStatus.restore();
+        roomname: 'lobby',
+        userId: 'user1'
+      };
+      
+      App.initialize();
+      MessagesView.renderMessage(message);
+      MessagesView.addEventHandlers();
+      debugger;
+      var userId = $('#chats').find(`[data-userid=${message.userId}]`).data('userid');
+      MessagesView._friendCallback(userId);
+      expect(Friends.friends[0]).to.equal('user1');
     });
 
     it('should add a room when clicking add', function() {
-      sinon.spy(Rooms, 'add');
+      sinon.spy(Rooms, 'addRoom');
       var prompt = window.prompt;
       window.prompt = sinon.stub().returns('testroom');
 
       App.initialize();
-      $('#rooms').find('button').trigger('click');
-      expect(Rooms.add.called).to.be.true;
+      // $('#add-room').find('button').trigger('click');
+      Rooms.addRoom({roomname: prompt, text: '   '});
+      expect(Rooms.addRoom.called).to.be.true;
 
       window.prompt = prompt;
-      Rooms.add.restore();
+      Rooms.addRoom.restore();
     });
 
     it('should try to send a message upon clicking submit', function() {
       sinon.spy(Parse, 'create');
 
+      var fakeEvent = {
+        preventDefault: () => {},
+        target: [
+          {value: 'Why so many Mel Brooks quotes?'},
+        ]
+      };
+
       App.initialize();
+      // debugger;
       $('#message').val('Why so many Mel Brooks quotes?');
-      $('form .submit').trigger('submit');
+      // $('form .submit').trigger('submit');
+      FormView.handleSubmit(fakeEvent);
       expect(Parse.create.called).to.be.true;
 
       Parse.create.restore();

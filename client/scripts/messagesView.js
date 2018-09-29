@@ -32,12 +32,17 @@ var MessagesView = {
     MessagesView.$chats.off('click');
     MessagesView.$chats.on('click', (event) => {
       var userId = event.target.parentNode.getAttribute('data-userid');
-      if (Friends.getFriendStatus(userId)) {
-        Friends.removeFriend(userId);
-      } else {
-        Friends.addFriend(userId);
-      }
-      MessagesView.render();
+      MessagesView._friendCallback(userId);
     });
+  },
+
+  _friendCallback: function (userId) {
+    
+    if (Friends.getFriendStatus(userId)) {
+      Friends.removeFriend(userId);
+    } else {
+      Friends.addFriend(userId);
+    }
+    MessagesView.render();
   }
 };
