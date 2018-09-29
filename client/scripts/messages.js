@@ -14,7 +14,7 @@ var Messages = {
                 Messages.messageIds[result.objectId] = result.objectId;
             }
             if (result.username && result.text) {
-                if (result.roomname === '') {
+                if (result.roomname === '' ||  !result.roomname) {
                     result.roomname = 'default';
                 } 
                 Messages.messages.unshift(result)
